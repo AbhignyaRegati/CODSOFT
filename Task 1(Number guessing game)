@@ -1,0 +1,64 @@
+import java.util.Scanner;
+
+class ragen{
+    public int genrate(int max,int min){
+        return (int) (Math.random()*(max - min + 1) + min);
+    }
+}
+
+public class main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ragen rg = new ragen();
+        int totalattempts = 0;
+        int win = 0;
+
+        while (true) {
+            System.out.println("Enter the maximum number");
+            int max = sc.nextInt();
+            System.out.println("Enter the minimum number");
+            int min = sc.nextInt();
+            sc.nextLine();
+
+            int cnumber = rg.genrate(max, min);
+            int attempts = 0;
+
+            while (true) {
+                System.out.println("Guess a number between "+max+" and "+min);
+                int gnumber = sc.nextInt();
+                attempts++;
+
+                if (gnumber > cnumber)
+                {
+                    System.out.println("Its Greater");
+                } 
+                else if (gnumber < cnumber)
+                {
+                    System.out.println("Its Lower");
+                }
+                else
+                {
+                    System.out.println("Correct Guess");
+                    win++;
+                    break;
+                }
+            }
+            totalattempts += attempts;
+            System.out.println("Attempts = " + attempts);
+            System.out.println("Wins = " + win);
+
+            double winrate = (double) win / totalattempts*100;
+            System.out.printf("Your winrate is %.2f%%\n",winrate);
+
+            System.out.println("Do you want to play again (YES/NO)");
+            String playAgain = sc.next();
+            if(!playAgain.equalsIgnoreCase("YES"))
+            {
+                sc.close();
+                System.exit(0);
+            }
+            sc.nextLine();
+        }
+    }
+}
